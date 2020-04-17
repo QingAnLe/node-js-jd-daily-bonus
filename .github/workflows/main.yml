@@ -38,6 +38,7 @@ jobs:
       env: 
         CONFIG_JD_COOKIE: ${{ secrets.CONFIG_JD_COOKIE }} # cookie        
       run: | 
+        echo $CONFIG_JD_COOKIE
         echo $CONFIG_JD_COOKIE > config-cookie.txt
         sed -i '2 r config-cookie.txt' 1.js
         
