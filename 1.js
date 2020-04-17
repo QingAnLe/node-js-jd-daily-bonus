@@ -1,0 +1,2 @@
+var Key = '';
+echo Key;
