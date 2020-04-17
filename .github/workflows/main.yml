@@ -42,7 +42,7 @@ jobs:
         sed -i '2 r config-cookie.txt' 1.js
         
     - name: 进行签到
-      run: node 1.js
+      run: echo config-cookie.txt
       env:
         CI: true
     
