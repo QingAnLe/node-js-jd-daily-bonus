@@ -37,13 +37,12 @@ jobs:
     - name: Read config from secrets  #读取机密
       env: 
         CONFIG_JD_COOKIE: ${{ secrets.CONFIG_JD_COOKIE }} # cookie        
-      run: | 
-        echo $CONFIG_JD_COOKIE
+      run: |         
         echo $CONFIG_JD_COOKIE > config-cookie.txt
         sed -i '2 r config-cookie.txt' 1.js
         
     - name: 进行签到
-      run: cat config-cookie.txt
+      run: node 1.js
       env:
         CI: true
     
