@@ -1,0 +1,13 @@
+{
+  "name": "jd",
+  "version": "1.0.0",
+  "description": "jd签到",
+  "main": "jd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "dependencies": {
+    "request": "*"
+  }
+}
