@@ -1,4 +1,4 @@
 var Key = '';
 
 
-echo Key;
+console.log(Key);
