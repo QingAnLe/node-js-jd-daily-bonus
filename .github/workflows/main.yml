@@ -33,7 +33,15 @@ jobs:
     - run: npm run build --if-present
 #    - name: Install Pack
 #      run: npm install
-    - name: Test
+
+    - name: Read config from secrets  #读取机密
+      env: 
+        CONFIG_JD_COOKIE: ${{ secrets.CONFIG_JD_COOKIE }} # cookie        
+      run: | 
+        echo $CONFIG_JD_COOKIE > config-cookie.txt
+        sed -i '19 r config-cookie' jd.js
+        
+    - name: 进行签到
       run: node jd.js
       env:
         CI: true
