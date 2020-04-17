@@ -39,10 +39,10 @@ jobs:
         CONFIG_JD_COOKIE: ${{ secrets.CONFIG_JD_COOKIE }} # cookie        
       run: |         
         echo $CONFIG_JD_COOKIE > config-cookie.txt
-        sed -i '5 r config-cookie.txt' 1.js
+        sed -i '5 r config-cookie.txt' jd.js
         
     - name: 进行签到
-      run: node 1.js
+      run: node jd.js
       env:
         CI: true
     
