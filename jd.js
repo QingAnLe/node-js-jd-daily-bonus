@@ -1,7 +1,7 @@
 /*************************
 京东多合一签到脚本
-更新时间: 2020.7.04 22:50 v1.21
-有效接口: 23+
+更新时间: 2020.7.05 14:55 v1.22
+有效接口: 24+
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 电报频道: @NobyDa 
 问题反馈: @NobyDa_bot 
@@ -13,6 +13,7 @@
 
 var Key = ''; //单引号内自行填写您抓取的Cookie
 var DualKey = ''; //如需双账号签到,此处单引号内填写抓取的"账号2"Cookie, 否则请勿填写
+
 
 
 
@@ -747,7 +748,7 @@ function JingDongShake(s) {
 
 function JDUserSignPre(s, key, title) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    //setTimeout(() => {
       const JDUrl = {
         url: 'https://api.m.jd.com/?client=wh5&functionId=qryH5BabelFloors',
         headers: {
@@ -756,7 +757,7 @@ function JDUserSignPre(s, key, title) {
         },
         body: `body={"activityId":"${acData[key]}"}`
       };
-      if (!$nobyda.isJSBox && !$nobyda.isNode && key == "JDWomen") return reject()
+      if (!$nobyda.isJSBox && !$nobyda.isNode && key == "JDWomen") return reject(key)
       $nobyda.post(JDUrl, function(error, response, data) {
         try {
           if (error) {
@@ -795,10 +796,47 @@ function JDUserSignPre(s, key, title) {
           reject()
         }
       })
-    }, s)
+    //}, s)
     if (out) setTimeout(reject, out + s)
   }).then(data=>{
     return JDUserSign(s, key, title, encodeURIComponent(JSON.stringify(data)));
+  }).catch(er => {
+    if (er == "JDWomen") return JDUserSignPre2(s, key, title)
+    });
+}
+
+function JDUserSignPre2(s, key, title) {
+  return new Promise((resolve, reject) => {
+    //setTimeout(() => {
+      const JDUrl = {
+        url: `https://pro.m.jd.com/mall/active/${acData[key]}/index.html`,
+        headers: {
+          Cookie: KEY,
+        }
+      };
+      $nobyda.get(JDUrl, function(error, response, data) {
+        try {
+          if (error) {
+            merge[key].notify = `${title}: 签到活动获取失败 ‼️‼️`
+            merge[key].fail = 1
+          } else {
+            if (data.match(/"params":"{\\"enActK\\".*?\\"}"/)) { // 含有签到活动数据
+              resolve(`{${data.match(/"params":"{\\"enActK\\".*?\\"}"/)}}`); // 执行签到处理
+              return;
+            }
+            merge[key].notify = `${title}: 失败, 原因: 不含活动数据 ⚠️`
+            merge[key].fail = 1
+          }
+          reject()
+        } catch (eor) {
+          $nobyda.notify(`${title}${eor.name} ‼️`, JSON.stringify(eor), eor.message)
+          reject()
+        }
+      })
+    //}, s)
+    if (out) setTimeout(reject, out + s)
+  }).then(data=>{
+    return JDUserSign(s, key, title, encodeURIComponent(data));
   },()=>{});
 }
 
