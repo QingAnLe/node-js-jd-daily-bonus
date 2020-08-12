@@ -109,7 +109,7 @@ async function all() {
       JDMagicCube(stop), //京东小魔方
       JingDongPrize(stop), //京东抽大奖
       JingDongSubsidy(stop), //京东金贴
-      JingDongGetCash(stop), //京东领现金
+      //JingDongGetCash(stop), //京东领现金
       JingDongShake(stop) //京东摇一摇
     ]);
     await Promise.all([
@@ -152,7 +152,7 @@ async function all() {
     await JDUserSignPre(stop, 'JDCare', '京东商城-个护'); //京东个人护理馆
     await JDUserSignPre(stop, 'JDJewels', '京东商城-珠宝'); //京东珠宝馆
     await JDMagicCube(stop); //京东小魔方
-    await JingDongGetCash(stop); //京东领现金
+    //await JingDongGetCash(stop); //京东领现金
     await JingDongPrize(stop); //京东抽大奖
     await JingDongSubsidy(stop); //京东金贴
     await JingDongShake(stop) //京东摇一摇
