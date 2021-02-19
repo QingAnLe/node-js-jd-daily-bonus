@@ -8,6 +8,8 @@
   },
   "author": "",
   "dependencies": {
-    "request": "*"
+    "request": "*",
+    "crypto-js": "*",
+    "got": "*"
   }
 }
