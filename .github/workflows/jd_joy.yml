@@ -32,7 +32,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - name: Install Pack
-      run: npm install got
+      run: npm install
         
     - name: 进行签到
       run: node jd_joy.js
