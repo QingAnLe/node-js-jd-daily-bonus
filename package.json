@@ -8,11 +8,11 @@
   },
   "author": "",
   "dependencies": {
-    "crypto-js": "^4.0.0",
-    "download": "^8.0.0",
-    "got": "^11.8.1",
-    "request": "^2.88.2",
-    "tough-cookie": "^4.0.0",
-    "trim": "^1.0.0"
+    "crypto-js": "*",
+    "download": "*",
+    "got": "*",
+    "request": "",
+    "tough-cookie": "*",
+    "trim": "*"
   }
 }
