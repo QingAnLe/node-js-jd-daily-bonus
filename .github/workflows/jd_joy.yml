@@ -12,9 +12,9 @@ on:
   #  branches: 
   #    - master
   schedule:
-    - cron: "15 0-15/2,16-23/2 * * *"
-  watch:
-    types: [started]
+    - cron: "15 0-23/1 * * *"
+  #watch:
+  #  types: [started]
 
 jobs:
   build:
