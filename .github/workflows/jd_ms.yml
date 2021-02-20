@@ -34,7 +34,7 @@ jobs:
     #- name: Install Pack
     #  run: npm install
         
-    - name: 宠汪汪 - 开始帮助好友喂食
+    - name: 开始执行
       run: node jd_ms.js
       env:
         CI: true
