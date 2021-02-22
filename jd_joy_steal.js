@@ -511,14 +511,14 @@ function getCoinChanges() {
             if (data.datas && data.datas.length > 0) {
               $.help_feed = 200;
               $.visit_friend = 100;
-              console.log(`当期日期：${timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000))}`)
+              console.log(`当期日期：${timeFormat()}`)
               for (let item of data.datas) {
                 console.log(item)
                 console.log(`timeFormat转换输出日期：${timeFormat(item.createdDate)}`)
-                if (timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)) === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
+                if (timeFormat() === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
                   $.help_feed = item.changeCoin;
                 }
-                if (timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)) === timeFormat(item.createdDate) && item.changeEvent === 'visit_friend') {
+                if (timeFormat() === timeFormat(item.createdDate) && item.changeEvent === 'visit_friend') {
                   $.visit_friend = item.changeCoin;
                 }
               }
@@ -627,11 +627,10 @@ function taskUrl(functionId, friendPin) {
 function timeFormat(time) {
   let date;
   if (time) {
-    date = new Date(time)
+    date = new Date(new Date(time).getTime() + new Date(time).getTimezoneOffset()*60*1000 + 8*60*60*1000)
   } else {
-    date = new Date();
+    date = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)
   }
-  console.log(`直接转换时间戳：${date}`)
   return date.getFullYear() + '-' + ((date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() >= 10 ? date.getDate() : '0' + date.getDate());
 }
 function jsonParse(str) {
