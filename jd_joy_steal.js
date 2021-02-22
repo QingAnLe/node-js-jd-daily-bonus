@@ -509,12 +509,9 @@ function getCoinChanges() {
           if (data) {
             data = JSON.parse(data);
             if (data.datas && data.datas.length > 0) {
-              $.help_feed = 200;
-              $.visit_friend = 100;
-              console.log(`当期日期：${timeFormat()}`)
+              $.help_feed = 0;
+              $.visit_friend = 0;
               for (let item of data.datas) {
-                console.log(item)
-                console.log(`timeFormat转换输出日期：${timeFormat(item.createdDate)}`)
                 if (timeFormat() === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
                   $.help_feed = item.changeCoin;
                 }
