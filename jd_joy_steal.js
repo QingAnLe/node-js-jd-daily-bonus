@@ -511,10 +511,10 @@ function getCoinChanges() {
             if (data.datas && data.datas.length > 0) {
               $.help_feed = 200;
               $.visit_friend = 100;
-              console.log(timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)))              
+              console.log(`当期日期：${timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000))}`)
               for (let item of data.datas) {
                 console.log(item)
-                console.log(timeFormat(item.createdDate))
+                console.log(`timeFormat转换输出日期：${timeFormat(item.createdDate)}`)
                 if (timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)) === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
                   $.help_feed = item.changeCoin;
                 }
@@ -631,7 +631,7 @@ function timeFormat(time) {
   } else {
     date = new Date();
   }
-  console.log(date)
+  console.log(`直接转换时间戳：${date}`)
   return date.getFullYear() + '-' + ((date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() >= 10 ? date.getDate() : '0' + date.getDate());
 }
 function jsonParse(str) {
