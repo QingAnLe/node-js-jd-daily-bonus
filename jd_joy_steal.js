@@ -509,9 +509,10 @@ function getCoinChanges() {
           if (data) {
             data = JSON.parse(data);
             if (data.datas && data.datas.length > 0) {
-              $.help_feed = 0;
-              $.visit_friend = 0;
+              $.help_feed = 200;
+              $.visit_friend = 100;
               console.log(timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)))
+              console.log(timeFormat(item.createdDate))
               for (let item of data.datas) {
                 if (timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)) === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
                   $.help_feed = item.changeCoin;
