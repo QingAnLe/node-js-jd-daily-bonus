@@ -512,10 +512,10 @@ function getCoinChanges() {
               $.help_feed = 0;
               $.visit_friend = 0;
               for (let item of data.datas) {
-                if ($.time('yyyy-MM-dd') === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
+                if (timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)) === timeFormat(item.createdDate) && item.changeEvent === 'help_feed'){
                   $.help_feed = item.changeCoin;
                 }
-                if ($.time('yyyy-MM-dd') === timeFormat(item.createdDate) && item.changeEvent === 'visit_friend') {
+                if (timeFormat(new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000)) === timeFormat(item.createdDate) && item.changeEvent === 'visit_friend') {
                   $.visit_friend = item.changeCoin;
                 }
               }
