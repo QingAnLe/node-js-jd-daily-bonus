@@ -4,17 +4,9 @@
 name: jd_pet
 
 on:
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
+  workflow_dispatch:
   schedule:
     - cron: "5 22,4,10 * * *"
-  #watch:
-  #  types: [started]
 
 jobs:
   build:
