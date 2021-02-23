@@ -4,17 +4,9 @@
 name: jd_ms
 
 on:
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
+  workflow_dispatch:
   schedule:
     - cron: "10 23 * * *"
-  #watch:
-  #  types: [started]
 
 jobs:
   build:
