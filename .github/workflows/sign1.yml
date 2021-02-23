@@ -35,7 +35,7 @@ jobs:
         echo $CONFIG_JD_COOKIE_V2 > config-cookie2.txt
         sed -i '21 r config-cookie.txt' jd.js
         sed -i '22 r config-cookie2.txt' jd.js
-        sed -i '/var.*nobyda.*nobyda/ a \const notifySend = require('./sendNotify');' jd.js
+        sed -i '/var.*nobyda.*nobyda/ a \const notifySend = require('sendNotify');' jd.js
         sed -i '/console.log.*title.*subtitle.*message/ a \    notifySend.sendNotify(title,message)' jd.js
     - name: 进行签到
       run: node jd.js
