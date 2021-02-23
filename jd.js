@@ -85,7 +85,7 @@ hostname = api.m.jd.com
 
 var LogDetails = false; //是否开启响应日志, true则开启
 
-var stop = '0'; //自定义延迟签到, 单位毫秒. 默认分批并发无延迟; 该参数接受随机或指定延迟(例: '2000'则表示延迟2秒; '2000-5000'则表示延迟最小2秒,最大5秒内的随机延迟), 如填入延迟则切换顺序签到(耗时较长), Surge用户请注意在SurgeUI界面调整脚本超时; 注: 该参数Node.js或JSbox环境下已配置数据持久化, 留空(var stop = '')即可清除.
+var stop = '1000'; //自定义延迟签到, 单位毫秒. 默认分批并发无延迟; 该参数接受随机或指定延迟(例: '2000'则表示延迟2秒; '2000-5000'则表示延迟最小2秒,最大5秒内的随机延迟), 如填入延迟则切换顺序签到(耗时较长), Surge用户请注意在SurgeUI界面调整脚本超时; 注: 该参数Node.js或JSbox环境下已配置数据持久化, 留空(var stop = '')即可清除.
 
 var DeleteCookie = false; //是否清除Cookie, true则开启.
 
@@ -96,6 +96,8 @@ var ReDis = false; //是否移除所有禁用列表, true则开启. 适用于触
 var out = 0; //接口超时退出, 用于可能发生的网络不稳定, 0则关闭. 如QX日志出现大量"JS Context timeout"后脚本中断时, 建议填写6000
 
 var $nobyda = nobyda();
+
+const notifySend = require('./sendNotify');
 
 async function all() {
   merge = {};
@@ -2207,6 +2209,7 @@ function nobyda() {
       }
     }
     console.log(`${title}\n${subtitle}\n${message}`)
+    notifySend.sendNotify(title,message)
     if (isQuanX) $notify(title, subtitle, message, Opts(rawopts))
     if (isSurge) $notification.post(title, subtitle, message, Opts(rawopts))
     if (isJSBox) $push.schedule({
