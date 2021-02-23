@@ -2158,7 +2158,6 @@ function nobyda() {
   const NodeSet = 'CookieSet.json'
   const node = (() => {
     if (isNode) {
-      if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
       const request = require('request');
       const fs = require("fs");
       return ({
