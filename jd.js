@@ -97,8 +97,6 @@ var out = 0; //接口超时退出, 用于可能发生的网络不稳定, 0则关
 
 var $nobyda = nobyda();
 
-const notifySend = require('./sendNotify');
-
 async function all() {
   merge = {};
   switch (stop) {
@@ -2209,7 +2207,6 @@ function nobyda() {
       }
     }
     console.log(`${title}\n${subtitle}\n${message}`)
-    notifySend.sendNotify(title,message)
     if (isQuanX) $notify(title, subtitle, message, Opts(rawopts))
     if (isSurge) $notification.post(title, subtitle, message, Opts(rawopts))
     if (isJSBox) $push.schedule({
