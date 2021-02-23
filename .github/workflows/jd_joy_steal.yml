@@ -4,17 +4,9 @@
 name: jd_joy_steal
 
 on:
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
+  workflow_dispatch:
   schedule:
     - cron: "10 0-13/3,16-23/3 * * *"
-  #watch:
-  #  types: [started]
 
 jobs:
   build:
