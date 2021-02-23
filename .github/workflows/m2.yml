@@ -44,3 +44,4 @@ jobs:
       run: node jd.js
       env:
         CI: true
+        JD_DEBUG: ${{ secrets.JD_DEBUG }}
