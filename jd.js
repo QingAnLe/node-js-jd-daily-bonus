@@ -97,10 +97,6 @@ var out = 0; //接口超时退出, 用于可能发生的网络不稳定, 0则关
 
 var $nobyda = nobyda();
 
-if ($.isNode()) {
-  if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
-}
-
 async function all() {
   merge = {};
   switch (stop) {
@@ -2162,6 +2158,7 @@ function nobyda() {
   const NodeSet = 'CookieSet.json'
   const node = (() => {
     if (isNode) {
+      if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
       const request = require('request');
       const fs = require("fs");
       return ({
