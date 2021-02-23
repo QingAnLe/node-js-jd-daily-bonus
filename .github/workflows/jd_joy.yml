@@ -4,17 +4,9 @@
 name: jd_joy
 
 on:
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
+  workflow_dispatch:
   schedule:
     - cron: "15 0-23/1 * * *"
-  #watch:
-  #  types: [started]
 
 jobs:
   build:
