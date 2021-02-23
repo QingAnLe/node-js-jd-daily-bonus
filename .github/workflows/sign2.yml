@@ -34,6 +34,7 @@ jobs:
         sed -i '22 r config-cookie2.txt' jd.js
         sed -i '/var.*nobyda.*nobyda/ a \const notifySend = require('"'"'./sendNotify'"'"');' jd.js
         sed -i '/console.log.*title.*subtitle.*message/ a \    notifySend.sendNotify(title,message)' jd.js
+        sed -i '/const request.*require.*request/ i \      if (process.env.JD_DEBUG && process.env.JD_DEBUG === '"'"'false'"'"') console.log = () => {};' jd.js
     - name: 进行签到
       run: node jd.js
       env:
