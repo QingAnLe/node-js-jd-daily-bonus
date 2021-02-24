@@ -1,7 +1,7 @@
 let inviteCodes = [
   ''
 ]
-// 判断github action里面是否有东东萌宠互助码
+
 if (process.env.SGMHSHARECODES) {
   if (process.env.SGMHSHARECODES.indexOf('&') > -1) {
     console.log(`您的东东萌宠互助码选择的是用&隔开\n`)
