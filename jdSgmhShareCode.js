@@ -4,10 +4,10 @@ let SgmhShareCodes = [
 
 if (process.env.SGMHSHARECODES) {
   if (process.env.SGMHSHARECODES.indexOf('&') > -1) {
-    console.log(`您的东东萌宠互助码选择的是用&隔开\n`)
+    console.log(`您的闪购盲盒互助码选择的是用&隔开\n`)
     SgmhShareCodes = process.env.SGMHSHARECODES.split('&');
   } else if (process.env.SGMHSHARECODES.indexOf('\n') > -1) {
-    console.log(`您的东东萌宠互助码选择的是用换行隔开\n`)
+    console.log(`您的闪购盲盒互助码选择的是用换行隔开\n`)
     SgmhShareCodes = process.env.SGMHSHARECODES.split('\n');
   } else {
     SgmhShareCodes = process.env.SGMHSHARECODES.split();
