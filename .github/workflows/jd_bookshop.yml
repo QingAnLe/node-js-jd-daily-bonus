@@ -6,7 +6,7 @@ name: 口袋书店
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 0 * * *"
+    - cron: "25 0,4,10 * * *"
 
 jobs:
   build:
