@@ -33,5 +33,5 @@ jobs:
         JD_COOKIE: ${{ secrets.JD_COOKIE }}
         TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
         TG_USER_ID: ${{ secrets.TG_USER_ID }}
-        JD_DEBUG: ${{ secrets.JD_DEBUG }}
+        #JD_DEBUG: ${{ secrets.JD_DEBUG }}
         JD_CASH_SHARECODES: ${{ secrets.JD_CASH_SHARECODES }}
