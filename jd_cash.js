@@ -300,7 +300,7 @@ function requireConfig() {
     let shareCodes = [];
     if ($.isNode()) {
       if (process.env.JD_CASH_SHARECODES) {
-        if (process.env.JD_CASshareH_SHARECODES.indexOf('\n') > -1) {
+        if (process.env.JD_CASH_SHARECODES.indexOf('\n') > -1) {
           shareCodes = process.env.JD_CASH_SHARECODES.split('\n');
         } else {
           shareCodes = process.env.JD_CASH_SHARECODES.split('&');
