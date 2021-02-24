@@ -24,15 +24,18 @@ const $ = new Env('闪购盲盒');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let appId = '1EFRXxg' , homeDataFunPrefix = 'interact_template', collectScoreFunPrefix = 'harmony', message = ''
 let lotteryResultFunPrefix = homeDataFunPrefix, browseTime = 6
-const inviteCodes = $.isNode() ? require('./jdSgmhShareCode.js') : '';
+const SgmhShareCode = $.isNode() ? require('./jdSgmhShareCode.js') : '';
 const randomCount = $.isNode() ? 20 : 5;
 const notify = $.isNode() ? require('./sendNotify') : '';
 let merge = {}
 //IOS等用户直接用NobyDa的jd cookie
-let cookiesArr = [], cookie = '';
+let cookiesArr = [], cookie = '', inviteCodes = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
+  })
+  Object.keys(SgmhShareCode).forEach((item) => {
+    inviteCodes.push(SgmhShareCode[item])
   })
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
 } else {
