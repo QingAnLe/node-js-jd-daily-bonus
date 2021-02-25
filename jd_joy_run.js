@@ -189,7 +189,7 @@ async function main() {
     Object.keys(shareCodes).forEach((item) => {
       if (shareCodes[item]) {
         invite_pins.push(shareCodes[item])
-        run_pinss.push(shareCodes[item])
+        run_pins.push(shareCodes[item])
         friendsArrs.push(shareCodes[item])
       }
     })
