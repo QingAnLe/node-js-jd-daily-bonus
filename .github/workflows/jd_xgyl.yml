@@ -27,7 +27,7 @@ jobs:
     #  run: npm install
         
     - name: 运行
-      run: node d_xgyl.js
+      run: node jd_xgyl.js
       env:
         CI: true
         JD_COOKIE: ${{ secrets.JD_COOKIE }}
