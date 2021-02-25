@@ -172,15 +172,17 @@ async function main() {
   }
   await getFriendPins();
 
-  invite_pins = [];
+invite_pins = [];
   run_pins = [];
   friendsArr = [];
   shareCodes= [];
   if ($.isNode() && process.env.JDJOY_SHARECODES) {
     if (process.env.JDJOY_SHARECODES.indexOf('\n') > -1) {
       shareCodes = process.env.JDJOY_SHARECODES.split('\n');
-    } else {
+    } else if (process.env.PETSHARECODES.indexOf('&') > -1) {
       shareCodes = process.env.JDJOY_SHARECODES.split('&');
+    } else {
+      shareCodes = process.env.JDJOY_SHARECODES.split();
     }
   }  
   if ($.isNode()) {
