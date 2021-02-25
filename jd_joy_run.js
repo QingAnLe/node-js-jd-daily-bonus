@@ -190,7 +190,7 @@ async function main() {
       if (shareCodes[item]) {
         invite_pins.push(shareCodes[item])
         run_pins.push(shareCodes[item])
-        friendsArrs.push(shareCodes[item])
+        friendsArr.push(shareCodes[item])
       }
     })
   }
