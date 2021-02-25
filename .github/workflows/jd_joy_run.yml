@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 宠汪汪助力
+name: 宠汪汪 - 助力
 
 on:
   workflow_dispatch:
@@ -31,5 +31,5 @@ jobs:
         JD_COOKIE: ${{ secrets.JD_COOKIE }}
         TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
         TG_USER_ID: ${{ secrets.TG_USER_ID }}
-        #JD_DEBUG: ${{ secrets.JD_DEBUG }}
+        JD_DEBUG: ${{ secrets.JD_DEBUG }}
         JDJOY_SHARECODES: ${{ secrets.JDJOY_SHARECODES }}
