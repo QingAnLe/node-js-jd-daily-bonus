@@ -172,7 +172,7 @@ async function main() {
   }
   await getFriendPins();
 
-invite_pins = [];
+  invite_pins = [];
   run_pins = [];
   friendsArr = [];
   shareCodes= [];
