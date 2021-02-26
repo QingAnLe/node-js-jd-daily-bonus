@@ -1,6 +1,6 @@
 /**
 宠汪汪邀请助力与赛跑助力脚本，感谢github@Zero-S1提供帮助
-更新时间：2021-1-7（宠汪汪助力更新Token的配置正则表达式已改）
+更新时间：2021-2-26
 活动入口：京东APP我的-更多工具-宠汪汪
 token时效很短，几个小时就失效了,闲麻烦的放弃就行
 每天拿到token后，可一次性运行完毕即可。
@@ -41,21 +41,20 @@ http-request ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detai
 const isRequest = typeof $request != "undefined"
 const $ = new Env('宠汪汪赛跑');
 const JD_BASE_API = `https://draw.jdfcloud.com//pet`;
-//此处填入你需要助力好友的京东用户名
 //下面给出好友邀请助力的示例填写规则
-let invite_pins = [''];
+let invite_pins = ['jd_6cd93e613b0e5,被折叠的记忆33,jd_704a2e5e28a66,jd_45a6b5953b15b,zooooo58,jd_66f5cecc1efcd,jd_41345a6f96aa5,jd_sIhNpDXJehOr,jd_mCbhXxmqzYJC,wddpzLSxORvLGo,jd_7bb2be8dbd65c'];
 //下面给出好友赛跑助力的示例填写规则
-let run_pins = [''];
+let run_pins = ['jd_6cd93e613b0e5,被折叠的记忆33,jd_704a2e5e28a66,jd_45a6b5953b15b,zooooo58,jd_66f5cecc1efcd,jd_41345a6f96aa5,jd_sIhNpDXJehOr,jd_mCbhXxmqzYJC,wddpzLSxORvLGo,jd_7bb2be8dbd65c'];
 let temp = run_pins[0].split(',')
-let fixPins = temp.splice(temp.indexOf(''), 1);
-fixPins.push(...temp.splice(temp.indexOf(''), 1));
+let fixPins = temp.splice(temp.indexOf('jd_6cd93e613b0e5'), 1);
+fixPins.push(...temp.splice(temp.indexOf('被折叠的记忆33'), 1));
 const randomPins = getRandomArrayElements(temp, 4);
 temp = [...fixPins, ...randomPins];
 run_pins = [temp.join(',')];
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
 // $.LKYLToken = $.getdata('jdJoyRunToken');
 //friendsArr内置太多会导致IOS端部分软件重启,可PR过来(此处目的:帮别人助力可得30g狗粮)
-let friendsArr = [""]
+let friendsArr = ["jd_6cd93e613b0e5", "被折叠的记忆33", "jd_704a2e5e28a66", "jd_45a6b5953b15b", "zooooo58", "jd_66f5cecc1efcd", "jd_41345a6f96aa5"]
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
 // $.LKYLToken = $.getdata('jdJoyRunToken');
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -82,7 +81,6 @@ if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
   })
-  if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
 } else {
   //支持 "京东多账号 Ck 管理"的cookie
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
@@ -122,24 +120,38 @@ async function getToken() {
     const LKYLToken = body.data && body.data.token;
     if (LKYLToken) {
       $.log(`${$.name} token\n${LKYLToken}\n`);
-      count = $.getdata('countFlag') ? $.getdata('countFlag') * 1 : 0;
-      count ++;
-      console.log(`count: ${count}`)
-      $.setdata(`${count}`, 'countFlag');
-      if ($.getdata('countFlag') * 1 === 2) {
-        count = 0;
-        $.setdata(`${count}`, 'countFlag');
-        $.msg($.name, '更新Token: 成功🎉', ``);
-        console.log(`开始上传Token，${LKYLToken}\n`)
-        await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
-          if (resp.statusCode === 200) {
+      $.msg($.name, '更新Token: 成功🎉', ``);
+      console.log(`\nToken，${LKYLToken}\n`)
+      $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+        if (resp.statusCode === 200) {
+          try {
             let { body } = resp;
             console.log(`Token提交结果:${body}\n`)
             body = JSON.parse(body);
             console.log(`${body.message}`)
+          } catch (e) {
+            console.log(`更新Token异常:${e}`)
           }
-        });
-      }
+        }
+      });
+      // count = $.getdata('countFlag') ? $.getdata('countFlag') * 1 : 0;
+      // count ++;
+      // console.log(`count: ${count}`)
+      // $.setdata(`${count}`, 'countFlag');
+      // if ($.getdata('countFlag') * 1 === 2) {
+      //   count = 0;
+      //   $.setdata(`${count}`, 'countFlag');
+      //   $.msg($.name, '更新Token: 成功🎉', ``);
+      //   console.log(`开始上传Token，${LKYLToken}\n`)
+      //   await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+      //     if (resp.statusCode === 200) {
+      //       let { body } = resp;
+      //       console.log(`Token提交结果:${body}\n`)
+      //       body = JSON.parse(body);
+      //       console.log(`${body.message}`)
+      //     }
+      //   });
+      // }
       $.setdata(LKYLToken, 'jdJoyRunToken');
     }
     $.done({ body: JSON.stringify(body) })
@@ -207,7 +219,7 @@ async function main() {
       }
     })
   }
-  
+
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -501,7 +513,7 @@ function getRandomArrayElements(arr, count) {
 function getFriendPins() {
   return new Promise(resolve => {
     $.get({
-      url: "https://TESTgitee.com/lxk0301/updateTeam/raw/master/friendPins.json",
+      url: "https://gitee.com/lxk0301/updateTeam/raw/master/friendPins.json",
       headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       },
