@@ -205,7 +205,7 @@ async function main() {
   if ($.isNode() && process.env.JDJOY_SHARECODES) {
     if (process.env.JDJOY_SHARECODES.indexOf('\n') > -1) {
       shareCodes = process.env.JDJOY_SHARECODES.split('\n');
-    } else if (process.env.PETSHARECODES.indexOf('&') > -1) {
+    } else if (process.env.JDJOY_SHARECODES.indexOf('&') > -1) {
       shareCodes = process.env.JDJOY_SHARECODES.split('&');
     } else {
       shareCodes = process.env.JDJOY_SHARECODES.split();
