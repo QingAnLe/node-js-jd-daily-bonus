@@ -2191,7 +2191,7 @@ function nobyda() {
       // 适配 jdCookie.js
       const otherKeyList = require('./jdCookie.js');
       OtherKey = JSON.stringify(otherKeyList);
-      OtherKey = OtherKey.replace(',','},{');
+      OtherKey = OtherKey.replace(/,/g,'},{');
       OtherKey = OtherKey.replace(/CookieJD.{0,10}(?=":)/g,'cookie')
       OtherKey = '[' + OtherKey + ']';
        
