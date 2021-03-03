@@ -6,7 +6,7 @@ name: 宠旺旺 - 狗粮
 on:
   workflow_dispatch:
   schedule:
-    - cron: "10 0-13/3,16-23/3 * * *"
+    - cron: "10 16,19,22,1,4,7,10,13 * * *"
 
 jobs:
   build:
