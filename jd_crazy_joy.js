@@ -32,9 +32,11 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 let helpSelf = false // 循环助力，默认关闭
 let applyJdBean = 0; //疯狂的JOY京豆兑换，目前最小值为2000京豆，默认为 0 不开启京豆兑换
 let cookiesArr = [], cookie = '', message = '';
-const inviteCodes = [
-  ''
-];
+let inviteCode = [];
+if (process.env.JD_CRAZYJOY_SHARECODES) {
+  inviteCode.push(process.env.JD_CRAZYJOY_SHARECODES)
+};
+const inviteCodes = inviteCode;
 const randomCount = $.isNode() ? 10 : 5;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 if ($.isNode()) {
