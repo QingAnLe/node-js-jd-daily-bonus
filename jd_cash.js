@@ -78,6 +78,7 @@ async function jdCash() {
   await helpFriends()
   await index(true)
   await getReward()
+  await getReward('2')
   await showMsg()
 }
 function index(info=false) {
@@ -209,9 +210,9 @@ function doTask(type,taskInfo) {
     })
   })
 }
-function getReward() {
+function getReward(source = 1) {
   return new Promise((resolve) => {
-    $.get(taskUrl("cash_mob_reward",{"source":1,"rewardNode":""}), (err, resp, data) => {
+    $.get(taskUrl("cash_mob_reward",{"source": Number(source),"rewardNode":""}), (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
