@@ -6,7 +6,7 @@ name: 日常签到
 on:
   workflow_dispatch:
   schedule:
-    - cron: "3 16 * * *"
+    - cron: "3 23 * * *"
 
 jobs:
   build:
