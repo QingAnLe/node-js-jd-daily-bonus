@@ -213,6 +213,7 @@ async function stealFriendsFood() {
       await doubleRandomFood(friendPin);
       const getRandomFoodRes = await getRandomFood(friendPin);
       console.log(`偷好友狗粮结果：${JSON.stringify(getRandomFoodRes)}`)
+      await $.wait(1000)
       if (getRandomFoodRes && getRandomFoodRes.success) {
         if (getRandomFoodRes.errorCode === 'steal_ok') {
           $.stealFood += getRandomFoodRes.data;
@@ -236,6 +237,7 @@ async function stealFriendCoinFun() {
         const { friendPin } = friends;
         if (friendPin === $.UserName) continue
         await stealFriendCoin(friendPin);//领好友积分
+        await $.wait(1000)
         if ($.stealFriendCoin * 1 === 100) {
           console.log(`偷好友积分已达上限${$.stealFriendCoin}个，现跳出循环`)
           break
@@ -257,6 +259,7 @@ async function helpFriendsFeed() {
         console.log(`\nhelpFriendsFeed---好友【${friendPin}】--喂食状态：${status}`);
         if (status === 'not_feed') {
           const helpFeedRes = await helpFeed(friendPin);
+          await $.wait(1000)
           // console.log(`帮忙喂食结果--${JSON.stringify(helpFeedRes)}`)
           $.helpFeedStatus = helpFeedRes.errorCode;
           if (helpFeedRes && helpFeedRes.errorCode === 'help_ok' && helpFeedRes.success) {
@@ -291,7 +294,7 @@ async function helpFriendsFeed() {
 function getFriends(currentPage = '1') {
   return new Promise(resolve => {
     let opt = {
-      url: `//jdjoy.jd.com/common/pet/getFriends?itemsPerPage=20&currentPage=${currentPage * 1}&reqSource=h5`,
+      url: `//jdjoy.jd.com/common/pet/h5/getFriends?itemsPerPage=20&currentPage=${currentPage * 1}&reqSource=h5`,
       // url: `//draw.jdfcloud.com/common/pet/getPetTaskConfig?reqSource=h5`,
       method: "GET",
       data: {},
