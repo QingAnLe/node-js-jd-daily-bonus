@@ -6,7 +6,7 @@ name: 国际盲盒
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1,4,12,14 * 2,3 *"
+    - cron: "0 1,4,12,13 * 2,3 *"
 
 jobs:
   build:
