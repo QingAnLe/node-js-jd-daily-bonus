@@ -355,7 +355,7 @@ async function shakeSign() {
   let bodyCp = {"paramData":{"token":"dd2fb032-9fa3-493b-8cd0-0d57cd51812d"}};
   const resCp = await pg_channel_page_data(bodyCp);
   if (res.success && res.data) {
-    if (res['data']['popUpRemainTimes'] > 0) {
+    if (res['data']['popUpRemainTimes'] >= 0) {
       //可签到
       body = {"floorToken":"f1d574ec-b1e9-43ba-aa84-b7a757f27f0e","dataSourceCode":"signIn","argMap":{"currSignCursor": resCp['data']['floorInfoList']['1']['floorData']['signActInfo']['currSignCursor']}}
       const signRes = await pg_interact_interface_invoke(body);
