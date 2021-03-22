@@ -164,6 +164,7 @@ async function doDailyTask() {
       }
       console.log('正在进行广告浏览任务: ' + advert.mainTitle);
       await browseAdTaskForFarm(advert.advertId, 0);
+      await $.wait(2000);
       if ($.browseResult.code === '0') {
         console.log(`${advert.mainTitle}浏览任务完成`);
         //领取奖励
@@ -222,9 +223,13 @@ async function doDailyTask() {
   // ])
   // await getAwardInviteFriend();
   await clockInIn();//打卡领水
+  await $.wait(2000);
   await executeWaterRains();//水滴雨
+  await $.wait(2000);
   await getExtraAward();//领取额外水滴奖励
+  await $.wait(2000);
   await turntableFarm()//天天抽奖得好礼
+  await $.wait(2000);
 }
 async function predictionFruit() {
   console.log('开始预测水果成熟时间\n');
@@ -627,6 +632,7 @@ async function masterHelpShare() {
       continue
     }
     await masterHelp(code);
+    await $.wait(2000);
     if ($.helpResult.code === '0') {
       if ($.helpResult.helpResult.code === '0') {
         //助力成功
@@ -914,6 +920,7 @@ async function duck() {
   for (let i = 0; i < 10; i++) {
     //这里循环十次
     await getFullCollectionReward();
+    await $.wait(1000);
     if ($.duckRes.code === '0') {
       if (!$.duckRes.hasLimit) {
         console.log(`小鸭子游戏:${$.duckRes.title}`);
@@ -1388,7 +1395,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+                $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
+              } else {
+                $.nickName = $.UserName
+              }
           } else {
             console.log(`京东服务器返回空数据`)
           }
