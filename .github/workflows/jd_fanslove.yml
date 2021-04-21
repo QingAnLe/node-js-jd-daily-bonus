@@ -6,7 +6,7 @@ name: 粉丝互动
 on:
   workflow_dispatch:
   schedule:
-    - cron: "2 16,2 * * *"
+    - cron: "12 */1 * * *"
 
 jobs:
   build:
@@ -34,3 +34,4 @@ jobs:
         TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
         TG_USER_ID: ${{ secrets.TG_USER_ID }}
         JD_DEBUG: ${{ secrets.JD_DEBUG }}
+        JD_FANSLOVE_URL: ${{ secrets.JD_FANSLOVE_URL }}
