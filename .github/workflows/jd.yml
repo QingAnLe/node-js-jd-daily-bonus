@@ -26,10 +26,7 @@ jobs:
 #    - name: Install Pack
 #      run: npm install
 
-    - name: Read config from secrets  #读取机密
-      env: 
-        CONFIG_JD_COOKIE: ${{ secrets.CONFIG_JD_COOKIE }} # cookie1
-        CONFIG_JD_COOKIE_V2: ${{ secrets.CONFIG_JD_COOKIE_V2 }} # cookie2
+    - name: Update script
       run: |
         sed -i '/var.*nobyda.*nobyda/ a \const notifySend = require('"'"'./sendNotify'"'"');' jd.js
         sed -i '/var stop =.*;/ a \var stop = '"'"'1000'"'"';' jd.js
