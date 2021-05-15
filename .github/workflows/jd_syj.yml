@@ -6,7 +6,7 @@ name: 赚京豆
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 23 * * *"
+    - cron: "15 16,1,4,8,15 * * *"
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
       run: node jd_syj.js
       env:
         CI: true
-        JD_COOKIE: ${{ secrets.JD_COOKIE_V }}
+        JD_COOKIE: ${{ secrets.JD_COOKIE }}
         TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
         TG_USER_ID: ${{ secrets.TG_USER_ID }}
         JD_DEBUG: ${{ secrets.JD_DEBUG }}
