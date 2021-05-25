@@ -4,11 +4,11 @@ author:star
 解密参考自：https://github.com/yangtingxiao/QuantumultX/blob/master/scripts/jd/jd_zoo.js
 活动入口：京东APP-》搜索 玩一玩-》瓜分20亿
 邀请好友助力：内部账号自行互助(排名靠前账号得到的机会多)
-PK互助：考虑中
+PK互助：内部账号自行互助(排名靠前账号得到的机会多)
 地图任务：未完成，后期添加
 金融APP任务：未完成，后期添加
 活动时间：2021-05-24至2021-06-20
-更新时间：2021-05-25
+脚本更新时间：2021-05-25
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 ===================quantumultx================
 [task_local]
@@ -24,7 +24,7 @@ cron "13 0-23/2 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/mast
  */
 const $ = new Env('618动物联萌');
 const notify = $.isNode() ? require('./sendNotify') : '';
-const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+const jdCookieNode = $.isNode() ? require('./jdCookie_all.js') : '';
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [];
 $.cookie = '';
@@ -40,7 +40,7 @@ if ($.isNode()) {
   cookiesArr = [
     $.getdata("CookieJD"),
     $.getdata("CookieJD2"),
-    ...$.toObj($.getdata("CookiesJD") || "Í[]").map((item) => item.cookie)].filter((item) => !!item);
+    ...$.toObj($.getdata("CookiesJD") || "[]").map((item) => item.cookie)].filter((item) => !!item);
 }
 !(async () => {
   if (!cookiesArr[0]) {
@@ -49,11 +49,11 @@ if ($.isNode()) {
   }
   console.log('活动入口：京东APP-》搜索 玩一玩-》瓜分20亿\n' +
       '邀请好友助力：内部账号自行互助(排名靠前账号得到的机会多)\n' +
-      'PK互助：考虑中\n' +
+      'PK互助：内部账号自行互助(排名靠前账号得到的机会多)\n' +
       '地图任务：未完成，后期添加\n' +
       '金融APP任务：未完成，后期添加\n' +
       '活动时间：2021-05-24至2021-06-20\n' +
-      '更新时间：2021-05-25');
+      '脚本更新时间：2021-05-25');
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       $.cookie = cookiesArr[i];
@@ -78,7 +78,15 @@ if ($.isNode()) {
     $.secretp = $.secretpInfo[$.UserName];
     $.index = i + 1;
     //console.log($.inviteList);
-    //console.log(`\n******开始【京东账号${$.index}】${$.UserName}*********\n`);
+    //pk助力
+    console.log(`\n******开始pk助力*********\n`);
+    //#for (let i = 0; i < $.pkInviteList.length; i++) {
+    for (let i = 0; i < 1; i++) {
+      console.log(`${$.UserName} 去助力PK码 ${$.pkInviteList[i]}`);
+      $.pkInviteId = $.pkInviteList[i];
+      await takePostRequest('pkHelp');
+    }
+    console.log(`\n******开始邀请好友助力*********\n`);
     //#for (let j = 0; j < $.inviteList.length && $.canHelp; j++) {
     for (let j = 0; j < 2 && $.canHelp; j++) {
       $.oneInviteInfo = $.inviteList[j];
@@ -210,23 +218,18 @@ async function zoo() {
       }
     }
     await $.wait(1000);
-    // await takePostRequest('zoo_pk_getTaskDetail');
-    // let skillList = $.pkHomeData.result.groupInfo.skillList;
-    // for (let i = 0; i < skillList.length && $.pkHomeData.result.activityStatus === 1; i++) {
-    //     if(Number(skillList[i].num) > 0){
-    //         $.skillCode = skillList[i].code;
-    //         for (let j = 0; j < Number(skillList[i].num) ; j++) {
-    //             console.log(`使用技能`);
-    //             await takePostRequest('zoo_pk_doPkSkill');
-    //             await $.wait(2000);
-    //         }
-    //     }
-    // }
-    //助力
-    //#for (let i = 0; i < $.pkInviteList.length; i++) {
-    for (let i = 0; i < 1; i++) {
-      $.pkInviteId = $.pkInviteList[i];
-      await takePostRequest('pkHelp');
+    await takePostRequest('zoo_pk_getTaskDetail');
+    let skillList = $.pkHomeData.result.groupInfo.skillList || [];
+    //activityStatus === 1未开始，2 已开始
+    for (let i = 0; i < skillList.length && $.pkHomeData.result.activityStatus === 2; i++) {
+      if (Number(skillList[i].num) > 0) {
+        $.skillCode = skillList[i].code;
+        for (let j = 0; j < Number(skillList[i].num); j++) {
+          console.log(`使用技能`);
+          await takePostRequest('zoo_pk_doPkSkill');
+          await $.wait(2000);
+        }
+      }
     }
   } catch (e) {
     $.logErr(e)
@@ -390,6 +393,7 @@ async function dealReturn(type, data) {
     case 'zoo_pk_getHomeData':
       if (data.code === 0) {
         console.log(`PK互助码：${data.data.result.groupInfo.groupAssistInviteId}`);
+        if (data.data.result.groupInfo.groupAssistInviteId) $.pkInviteList.push(data.data.result.groupInfo.groupAssistInviteId);
         $.pkHomeData = data.data;
       }
       break;
@@ -411,7 +415,8 @@ async function dealReturn(type, data) {
       break
     case 'zoo_sign':
       if(data.code === 0 && data.data.bizCode === 0) {
-        console.log(`签到获得：${data.data.result.redPacketValue} 红包`);
+        console.log(`签到获得成功`);
+        if (data.data.result.redPacketValue) console.log(`签到获得：${data.data.result.redPacketValue} 红包`);
       }else{
         console.log(`签到失败`);
         console.log(data);
